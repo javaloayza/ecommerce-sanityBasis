@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { client } from '../lib/client';
-import { FooterBanner, HeroBanner } from '../components';
+import { Product, FooterBanner, HeroBanner } from '../components';
 
 const Home = ({ products, bannerData }) => (
   <div>
-    {/*  */}
     <HeroBanner heroBanner={bannerData.length && bannerData[0] }/> 
     {console.log(bannerData)};
     <div className="products-heading">
@@ -16,8 +15,8 @@ const Home = ({ products, bannerData }) => (
     <div className="products-container">
       {products?.map((product) => <Product key={product._id} product={product} />)} 
     </div>
-{/*     footerBanner={bannerData && bannerData[0]} */}  
-     {/*  <FooterBanner/>  */}
+    
+     <FooterBanner footerBanner={bannerData && bannerData[0]} /> 
   </div>
 );
 
