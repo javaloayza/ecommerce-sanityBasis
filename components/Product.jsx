@@ -6,8 +6,10 @@ import { urlFor } from '../lib/client';
 const Product = ({ product: { image, name, slug, price } }) => {
   return (
     <div>
+      {/* Creating a link to the product page. */}
       <Link href={`/product/${slug.current}`}>
         <div className="product-card">
+        { /* Using the `urlFor` function to get the image url. */ }
           <img 
             src={urlFor(image && image[0])}
             width={250}
