@@ -113,9 +113,9 @@ const toggleCartItemQuanitity = (id, value) => {
         onAdd,
         toggleCartItemQuanitity,
         onRemove,
-        //setCartItems,
-        //setTotalPrice,
-        //setTotalQuantities 
+        setCartItems,
+        setTotalPrice,
+        setTotalQuantities 
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
-//import getStripe from '../lib/getStripe';
+import getStripe from '../lib/getStripe';
 
 const Cart = () => {
   const cartRef = useRef();
@@ -15,20 +15,29 @@ const Cart = () => {
   const handleCheckout = async () => {
     const stripe = await getStripe();
 
+//? we essentially created one instance of a checkout this specific user is going to be on that specific
+//? instance and it's going to be kept in the back end even after they're gone so if they want to return and continue with the purchase they'll be able to do so
+//? and that's it so now we are actually making a request to our backend we are accepting it and we are sending in the body with our request
+//? so we should be able to get all the products right here
+   /* Sending the cartItems to the server. */
     const response = await fetch('/api/stripe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+    /* we're passing the cartItems straight right here as the body we didn't specify an
+      object where we said cart items are equal to cart items in the body */
       body: JSON.stringify(cartItems),
     });
 
     if(response.statusCode === 500) return;
     
+    /* Converting the response to JSON. */
     const data = await response.json();
 
     toast.loading('Redirecting...');
 
+  /* Redirecting the user to the Stripe checkout page. */
     stripe.redirectToCheckout({ sessionId: data.id });
   }
 
@@ -77,7 +86,7 @@ const Cart = () => {
                     <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec') }>
                     <AiOutlineMinus />
                     </span>
-                    <span className="num" onClick="">{item.quantity}</span>
+                    <span className="num" >{item.quantity}</span>
                     <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc') }>
                     <AiOutlinePlus /></span>
                   </p>
